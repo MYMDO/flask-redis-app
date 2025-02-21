@@ -1,0 +1,32 @@
+name: Deploy Multi-Container App (Docker Compose)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Docker Compose
+      uses: docker/setup-docker-compose@v2 # Встановлення Docker Compose в середовищі GitHub Actions
+
+    - name: Build and run Docker Compose app
+      run: docker-compose up --build -d # --build для перезбірки образів, -d для фонового режиму
+
+    - name: Wait for app to start (optional, for more robust checks in real apps)
+      run: sleep 10  # Зачекати трохи, щоб застосунок запустився
+
+    - name: Check app availability (optional, for more robust checks in real apps)
+      run: curl http://localhost:8080 || exit 1 # Перевірка HTTP 200 OK на localhost:8080
+
+    - name: Output Success Message
+      run: echo "Багатоконтейнерний застосунок успішно розгорнуто та локально перевірено!"
+
+    - name: Stop Docker Compose app
+      if: always() # Завжди виконувати цей крок, навіть якщо попередні кроки не вдалися
+      run: docker-compose down # Зупинка контейнерів Docker Compose
