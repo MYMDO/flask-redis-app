@@ -13,7 +13,7 @@ jobs:
       uses: actions/checkout@v3
 
     - name: Set up Docker Compose
-      uses: docker/setup-compose-action@v2 # Встановлення Docker Compose в середовищі GitHub Actions
+      uses: docker/setup-compose-action@v1 # Встановлення Docker Compose в середовищі GitHub Actions
 
     - name: Build and run Docker Compose app
       run: docker-compose up --build -d # --build для перезбірки образів, -d для фонового режиму
