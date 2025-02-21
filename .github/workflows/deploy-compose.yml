@@ -10,15 +10,16 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up Docker Compose
-      uses: docker/setup-compose-action@v2 # Встановлення Docker Compose в середовищі GitHub Actions
+      uses: docker/setup-compose-action@v1 # Встановлення Docker Compose в середовищі GitHub Actions
       with:
         version: latest
+        compose-file: "./docker/docker-compose.yml"
 
     - name: Build and run Docker Compose app
-      run: docker-compose up --build -d # --build для перезбірки образів, -d для фонового режиму
+      run: docker compose up --build -d # --build для перезбірки образів, -d для фонового режиму
 
     - name: Wait for app to start (optional, for more robust checks in real apps)
       run: sleep 10  # Зачекати трохи, щоб застосунок запустився
