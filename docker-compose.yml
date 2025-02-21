@@ -1,0 +1,16 @@
+# docker-compose.yml
+version: "3.9"
+services:
+  web:
+    build: . # Збірка образу з Dockerfile в поточній директорії
+    ports:
+      - "8080:80" # Прокидання порту 8080 з локальної машини на порт 80 контейнера web
+    environment:
+      REDIS_HOST: redis # Встановлення змінної оточення REDIS_HOST для web сервісу, вказує на сервіс redis
+    depends_on:
+      - redis # Залежність: сервіс web залежить від сервісу redis
+
+  redis:
+    image: "redis:latest" # Використовуємо готовий образ Redis з Docker Hub
+    ports:
+      - "6379:6379" # Прокидання порту Redis для локального доступу (опціонально, для дебагу або зовнішнього клієнта Redis)
