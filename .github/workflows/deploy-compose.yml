@@ -32,4 +32,4 @@ jobs:
 
     - name: Stop Docker Compose app
       if: always() # Завжди виконувати цей крок, навіть якщо попередні кроки не вдалися
-      run: docker-compose down # Зупинка контейнерів Docker Compose
+      run: docker compose down # Зупинка контейнерів Docker Compose
