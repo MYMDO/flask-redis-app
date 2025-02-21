@@ -1,0 +1,22 @@
+# kubernetes/redis-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis-deployment
+  labels:
+    app: redis
+spec:
+  replicas: 1 # Запустити 1 репліку Redis
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:latest # Використовуємо офіційний образ Redis з Docker Hub
+        ports:
+        - containerPort: 6379

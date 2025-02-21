@@ -1,0 +1,12 @@
+# kubernetes/redis-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+spec:
+  selector:
+    app: redis # Селектор для вибору Pods, керованих Deployment redis-deployment
+  ports:
+  - protocol: TCP
+    port: 6379 # Порт сервісу (в Kubernetes)
+    targetPort: 6379 # Порт контейнера, до якого перенаправляти трафік

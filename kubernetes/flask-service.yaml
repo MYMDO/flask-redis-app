@@ -1,0 +1,13 @@
+# kubernetes/flask-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-service
+spec:
+  type: LoadBalancer # Тип сервісу: LoadBalancer (для Minikube - тип LoadBalancer буде доступний через minikube service <service-name> --url)
+  selector:
+    app: flask-app # Селектор для вибору Pods, керованих Deployment flask-deployment
+  ports:
+  - protocol: TCP
+    port: 80 # Порт сервісу (зовнішній порт, до якого будемо звертатися)
+    targetPort: 80 # Порт контейнера, до якого перенаправляти трафік

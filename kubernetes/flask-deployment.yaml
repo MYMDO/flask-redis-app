@@ -1,0 +1,27 @@
+# kubernetes/flask-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-deployment
+  labels:
+    app: flask-app
+spec:
+  replicas: 1 # Запустити 1 репліку Flask застосунку
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: thejfex/flask-redis-app:latest # Використовуємо образ, завантажений на Docker Hub
+        ports:
+        - containerPort: 80
+        env: # Змінні оточення для Flask застосунку
+        - name: REDIS_HOST
+          value: redis-service # Назва сервісу Redis в Kubernetes
+        - name: REDIS_PORT
+          value: "6379"
